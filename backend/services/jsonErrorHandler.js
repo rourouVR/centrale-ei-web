@@ -4,6 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 const jsonErrorHandler = function (error, req, res, next) {
   if (process.env.NODE_ENV === "development") {
+    console.error(error);
     return res.status(500).json({
       message: error.toString(),
       stackTrace: error.stack,
