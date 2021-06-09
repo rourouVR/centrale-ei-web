@@ -4,10 +4,10 @@
       <img
         class="image"
         title="movie.title"
-        :src="'https://image.tmdb.org/t/p/original' + movie.poster_path"
+        :src="'https://image.tmdb.org/t/p/original' + movie.imageurl"
       />
       <div class="middle">
-        <div class="text">{{ movie.overview }}</div>
+        <div class="text">{{ movie.description }}</div>
       </div>
     </div>
     <p>{{ movie.title }}</p>
