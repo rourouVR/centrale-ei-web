@@ -6,7 +6,7 @@ mongoose.connect(process.env.MONGO_DB_URL, {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
-for (let pas = 41; pas < 80; pas++) {
+for (let pas = 1; pas < 80; pas++) {
   axios
     .get(
       "https://api.themoviedb.org/3/movie/top_rated?api_key=522d421671cf75c2cba341597d86403a&language=en-US&page=" +
