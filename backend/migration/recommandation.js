@@ -56,7 +56,6 @@ var similar_user = function (dataset, person, num_user, distance) {
   return score;
 };
 //returns users with highest score correlation
-
 // have a weighted score according to similar users
 // movie_score= sum similarity(user)*score(movie,user)/(number of people that rated movie)
 var recommendation_eng = function (dataset, person, distance) {

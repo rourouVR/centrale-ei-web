@@ -2,10 +2,11 @@
   <div v-if="email">
     <div class="nav">
       <router-link class="nav-link" to="/">Home</router-link> |
-      <router-link class="nav-link" to="/counter">Counter</router-link> |
-      <router-link class="nav-link" to="/users">Users</router-link> |
-      <router-link class="nav-link" to="/about">About</router-link> |
-      <router-link class="nav-link" to="/lien">About</router-link>
+      <router-link class="nav-link" to="/recommendation"
+        >recommendation</router-link
+      >
+      |
+      <router-link class="nav-link" to="/logout">Logout</router-link>
     </div>
     <router-view />
   </div>
@@ -35,10 +36,10 @@ export default {
 
 .nav-link {
   font-weight: bold;
-  color: #2c3e50;
+  color: #aaaeb3;
 }
 
 .nav-link.router-link-exact-active {
-  color: #42b983;
+  color: #789487;
 }
 </style>

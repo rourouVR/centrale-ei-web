@@ -4,48 +4,42 @@
       <div class="affiche">
         <img
           class="image"
-          src="https://img.filmsactu.net/datas/films/c/r/creed-2/n/creed-2-5f4e2942a8cc3.jpg"
+          :title="film.title"
+          :src="'https://image.tmdb.org/t/p/original' + film.imageurl"
           alt="Affiche du film"
         />
       </div>
       <div class="infos">
         <div class="titre">
-          <h1>Titre du film</h1>
-          <div class="score">
-            <div class="rate">
-              <input type="radio" id="star5" name="rate" value="5" />
-              <label @click="fiveStars" for="star5" title="text">5 stars</label>
-              <input type="radio" id="star4" name="rate" value="4" />
-              <label @click="fourStars" for="star4" title="text">4 stars</label>
-              <input type="radio" id="star3" name="rate" value="3" />
-              <label @click="threeStars" for="star3" title="text"
-                >3 stars</label
-              >
-              <input type="radio" id="star2" name="rate" value="2" />
-              <label @click="twoStars" for="star2" title="text">2 stars</label>
-              <input type="radio" id="star1" name="rate" value="1" />
-              <label @click="oneStar" for="star1" title="text">1 star</label>
-            </div>
-          </div>
+          <h1>{{ film.title }}</h1>
         </div>
         <div class="description">
           <div class="resume">
-            <h2>Résumé</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro,
-              animi et id fugiat sint aliquid minus amet rem fugit inventore aut
-              corrupti similique est cum dolore, ab quidem sed architecto.
-            </p>
+            <p>{{ film.description }}</p>
           </div>
           <div class="aside">
             <div class="joli"></div>
             <div class="date de sortie">
-              <p>Date de Sortie</p>
-              <p>Acteur</p>
-
-              <p>Genre</p>
-              <p>Langage</p>
+              <p>{{ film.release_date }}</p>
+              <div v-for="data in genres" :key="data">
+                {{ data }}
+              </div>
+              <p>{{ film.language }}</p>
             </div>
+          </div>
+        </div>
+        <div class="score">
+          <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label @click="fiveStars" for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label @click="fourStars" for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label @click="threeStars" for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label @click="twoStars" for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label @click="oneStar" for="star1" title="text">1 star</label>
           </div>
         </div>
       </div>
@@ -56,21 +50,47 @@
 <script>
 import axios from "axios";
 export default {
-  created: function () {
-    console.log(this.$route.params.movieId);
-  },
   data: function () {
     return {
       name: "index.js",
+      film: {},
+      genres: [],
+      item: "",
     };
   },
   methods: {
+    fetchMovie: function () {
+      return axios
+        .get(
+          `${process.env.VUE_APP_BACKEND_BASE_URL}/movies/` +
+            this.$route.params.movieId
+        )
+        .then((response) => {
+          this.film = response.data.movie;
+        })
+        .catch(() => {
+          console.log("ERROR");
+        });
+    },
+    fetchgenres: function () {
+      for (let i of this.film.genre) {
+        axios
+          .get(`${process.env.VUE_APP_BACKEND_BASE_URL}/genre/` + i)
+          .then((response) => {
+            this.genres.push(response.data);
+            console.log(this.genres);
+          })
+          .catch(() => {
+            console.log("ERROR");
+          });
+      }
+    },
     fiveStars: function () {
       axios
-        .post("basededonnées", {
+        .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
+          imdbid: this.film.imdbid,
+          mail: this.$root.email,
           rating: 5,
-          movieId: this.$route.params.movieId,
-          email: this.$root.email,
         })
         .then(() => {})
         .catch(() => {
@@ -79,10 +99,10 @@ export default {
     },
     fourStars: function () {
       axios
-        .post("basededonnées", {
+        .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
+          imdbid: this.film.imdbid,
+          mail: this.$root.email,
           rating: 4,
-          movieId: this.$route.params.movieId,
-          email: this.$root.email,
         })
         .then(() => {})
         .catch(() => {
@@ -91,10 +111,10 @@ export default {
     },
     threeStars: function () {
       axios
-        .post("basededonnées", {
+        .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
+          imdbid: this.film.imdbid,
+          mail: this.$root.email,
           rating: 3,
-          movieId: this.$route.params.movieId,
-          email: this.$root.email,
         })
         .then(() => {})
         .catch(() => {
@@ -103,10 +123,10 @@ export default {
     },
     twoStars: function () {
       axios
-        .post("basededonnées", {
+        .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
+          imdbid: this.film.imdbid,
+          mail: this.$root.email,
           rating: 2,
-          movieId: this.$route.params.movieId,
-          email: this.$root.email,
         })
         .then(() => {})
         .catch(() => {
@@ -115,16 +135,21 @@ export default {
     },
     oneStar: function () {
       axios
-        .post("basededonnées", {
+        .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
+          imdbidd: this.film.imdbid,
+          mail: this.$root.email,
           rating: 1,
-          movieId: this.$route.params.movieId,
-          email: this.$root.email,
         })
         .then(() => {})
         .catch(() => {
           alert("une erreur est survenue");
         });
     },
+  },
+  created: function () {
+    this.fetchMovie().then(() => {
+      this.fetchgenres();
+    });
   },
 };
 </script>
@@ -171,7 +196,7 @@ export default {
 .rate {
   float: left;
   height: 46px;
-  padding: 0 10px;
+  padding: 20 10px;
 }
 .rate:not(:checked) > input {
   position: absolute;
@@ -205,5 +230,7 @@ export default {
 }
 
 .score {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 </style>

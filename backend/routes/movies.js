@@ -10,6 +10,11 @@ router.get("/", function (req, res) {
       res.json({ movie: movie });
     });
 });
+router.get("/:movieId", function (req, res) {
+  movieModel.findById(req.params.movieId).then(function (movie) {
+    res.json({ movie: movie });
+  });
+});
 
 router.post("/new", function (req, res) {
   const newmovie = new movieModel({
