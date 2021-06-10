@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const ratingSchema = new mongoose.Schema({
-  imdbid: { type: String, required: true, unique: true },
-  mail: { type: String, required: true, unique: true },
+  imdbid: { type: String, required: true },
+  mail: { type: String, required: true },
   rating: { type: Number },
 });
 
