@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome!!</h1>
+    <input v-model="message" placeholder="movie" />
     <div class="container">
       <movie
         :movie="movie"
@@ -18,7 +19,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import movie from "@/components/movie.vue";
 import axios from "axios";
@@ -48,6 +48,7 @@ export default {
         });
     },
   },
+
   created: function () {
     this.fetchmovielist();
   },
