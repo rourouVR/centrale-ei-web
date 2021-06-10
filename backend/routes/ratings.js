@@ -5,7 +5,7 @@ const router = express.Router();
 router.post("/rate", function (req, res) {
   ratingModel
     .findOne({
-      imdbid: req.body.movie_id,
+      imdbid: req.body.imdbid,
       mail: req.body.email,
     })
     .then(function (rating) {
@@ -14,8 +14,8 @@ router.post("/rate", function (req, res) {
         ratingToAddOrUpdate = rating;
       } else {
         ratingToAddOrUpdate = new ratingModel({
-          email: req.body.email,
-          movie_id: req.body.movie_id,
+          mail: req.body.mail,
+          imdbid: req.body.imdbid,
           rating: req.body.rating,
         });
       }
