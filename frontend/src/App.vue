@@ -21,6 +21,9 @@ export default {
   components: {
     Login,
   },
+  created: function () {
+    this.email = sessionStorage.getItem("email");
+  },
 };
 </script>
 <style scoped>
