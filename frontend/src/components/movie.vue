@@ -1,14 +1,18 @@
 <template>
   <div class="movie-container">
     <div class="container">
-      <img
-        class="image"
-        title="movie.title"
-        :src="'https://image.tmdb.org/t/p/original' + movie.imageurl"
-      />
-      <div class="middle">
-        <div class="text">{{ movie.description }}</div>
-      </div>
+
+      <router-link :to="'/movie/' + movie.id">
+        <img
+          class="image"
+          title="movie.title"
+          :src="'https://image.tmdb.org/t/p/original' + movie.poster_path"
+        />
+        <div class="middle">
+          <div class="text">{{ movie.overview }}</div>
+        </div>
+      </router-link>
+
     </div>
     <p>{{ movie.title }}</p>
     <p>{{ movie.release_date }}</p>
