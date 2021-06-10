@@ -1,6 +1,7 @@
 <template>
   <div class="movie-container">
     <div class="container">
+
       <router-link :to="'/movie/' + movie.id">
         <img
           class="image"
@@ -11,6 +12,7 @@
           <div class="text">{{ movie.overview }}</div>
         </div>
       </router-link>
+
     </div>
     <p>{{ movie.title }}</p>
     <p>{{ movie.release_date }}</p>

@@ -8,6 +8,16 @@ router.get("/", function (req, res) {
   });
 });
 
+router.get("/:email", function (req, res) {
+  UserModel.find({ email: req.params.email }).then(function (users) {
+    if (users.length === 0) {
+      res.json({ exists: "false" });
+    } else {
+      res.json({ exists: "true" });
+    }
+  });
+});
+
 router.post("/new", function (req, res) {
   const newUser = new UserModel({
     email: req.body.email,

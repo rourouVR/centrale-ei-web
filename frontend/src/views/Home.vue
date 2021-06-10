@@ -36,11 +36,9 @@ export default {
   methods: {
     fetchmovielist: function () {
       axios
-        .get(
-          "https://api.themoviedb.org/3/movie/top_rated?api_key=522d421671cf75c2cba341597d86403a&language=en-US&page=1"
-        )
+        .get(`${process.env.VUE_APP_BACKEND_BASE_URL}/movies`)
         .then((response) => {
-          this.movies = response.data.results;
+          this.movies = response.data.movie;
           console.log(this.movies);
         })
         .catch(() => {
@@ -50,6 +48,7 @@ export default {
   },
   created: function () {
     this.fetchmovielist();
+    console.log(this.$root.email);
   },
 };
 </script>

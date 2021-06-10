@@ -6,9 +6,21 @@
     <router-link class="nav-link" to="/about">About</router-link> |
     <router-link class="nav-link" to="/Lien">About</router-link>
   </div>
-  <router-view />
+  <Login v-else />
 </template>
-
+<script>
+import Login from "./views/login.vue";
+export default {
+  data: function () {
+    return {
+      email: null,
+    };
+  },
+  components: {
+    Login,
+  },
+};
+</script>
 <style scoped>
 .nav {
   text-align: center;

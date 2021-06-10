@@ -1,10 +1,14 @@
 const express = require("express");
 const movieModel = require("../models/movies");
 const router = express.Router();
+
 router.get("/", function (req, res) {
-  movieModel.find({}).then(function (movie) {
-    res.json({ movie: movie });
-  });
+  movieModel
+    .find({})
+    .limit(40)
+    .then(function (movie) {
+      res.json({ movie: movie });
+    });
 });
 
 router.post("/new", function (req, res) {
