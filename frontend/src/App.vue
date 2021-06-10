@@ -1,4 +1,5 @@
 <template>
+<div v-if="email">
   <div class="nav">
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/counter">Counter</router-link> |
