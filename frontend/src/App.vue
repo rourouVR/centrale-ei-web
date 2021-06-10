@@ -5,6 +5,7 @@
       <router-link class="nav-link" to="/counter">Counter</router-link> |
       <router-link class="nav-link" to="/users">Users</router-link> |
       <router-link class="nav-link" to="/about">About</router-link> |
+      <router-link class="nav-link" to="/lien">About</router-link>
     </div>
     <router-view />
   </div>
