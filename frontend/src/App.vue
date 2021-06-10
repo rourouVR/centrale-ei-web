@@ -1,13 +1,28 @@
 <template>
-  <div class="nav">
-    <router-link class="nav-link" to="/">Home</router-link> |
-    <router-link class="nav-link" to="/counter">Counter</router-link> |
-    <router-link class="nav-link" to="/users">Users</router-link> |
-    <router-link class="nav-link" to="/about">About</router-link>
+  <div v-if="email">
+    <div class="nav">
+      <router-link class="nav-link" to="/">Home</router-link> |
+      <router-link class="nav-link" to="/counter">Counter</router-link> |
+      <router-link class="nav-link" to="/users">Users</router-link> |
+      <router-link class="nav-link" to="/about">About</router-link> |
+    </div>
+    <router-view />
   </div>
-  <router-view />
+  <Login v-else />
 </template>
-
+<script>
+import Login from "./views/login.vue";
+export default {
+  data: function () {
+    return {
+      email: null,
+    };
+  },
+  components: {
+    Login,
+  },
+};
+</script>
 <style scoped>
 .nav {
   text-align: center;

@@ -48,6 +48,7 @@ export default {
   },
   created: function () {
     this.fetchmovielist();
+    console.log(this.$root.email);
   },
 };
 </script>
