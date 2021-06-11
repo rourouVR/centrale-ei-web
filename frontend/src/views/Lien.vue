@@ -149,7 +149,7 @@ export default {
     oneStar: function () {
       axios
         .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
-          imdbidd: this.film.imdbid,
+          imdbid: this.film.imdbid,
           mail: this.$root.email,
           rating: 1,
         })

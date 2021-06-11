@@ -6,7 +6,9 @@
       title="Logout"
       src="https://www.nicepng.com/png/detail/88-888831_logout-exit-door-comments-exit-door-icon-white.png"
     />
-    <p style="text-align: center">Logout</p>
+    <p style="text-align: center">
+      <font size="+2">Click here to log out</font>
+    </p>
   </a>
 </template>
 <script>
