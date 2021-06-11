@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Recommended</h1>
+    <h1>Movies carefully picked for you!</h1>
     <!-- <input v-model="message" placeholder="movie" /> -->
     <div class="container">
       <movie

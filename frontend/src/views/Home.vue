@@ -10,13 +10,6 @@
         :key="movie.id"
       />
     </div>
-
-    <div id="v-model-basic" class="home">
-      <form>
-        <input v-model="movieName" placeholder="Add a movie" />
-        <p>{{ movieName }}</p>
-      </form>
-    </div>
   </div>
 </template>
 <script>

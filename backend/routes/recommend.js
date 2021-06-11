@@ -8,7 +8,6 @@ router.get("/:id", function (req, res) {
   recommendModel
     .findOne({ email: req.params.id })
     .then(function (recommendation) {
-      console.log({ hola: recommendation });
       movieModel
         .find({ imdbid: { $in: recommendation.movieList } })
         .limit(40)
