@@ -2,15 +2,15 @@ const express = require("express");
 const movieModel = require("../models/movies");
 const router = express.Router();
 
-router.get("/", function (req, res) {
+router.get("/:num", function (req, res) {
   movieModel
     .find({})
-    .limit(40)
+    .limit(Number(req.params.num))
     .then(function (movie) {
       res.json({ movie: movie });
     });
 });
-router.get("/:movieId", function (req, res) {
+router.get("/movie/:movieId", function (req, res) {
   movieModel.findById(req.params.movieId).then(function (movie) {
     res.json({ movie: movie });
   });

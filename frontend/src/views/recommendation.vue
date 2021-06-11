@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Welcome</h1>
+    <h1>Recommended</h1>
     <!-- <input v-model="message" placeholder="movie" /> -->
     <div class="container">
       <movie
@@ -13,7 +13,6 @@
 
     <div id="v-model-basic" class="home">
       <form>
-        <input v-model="movieName" placeholder="Add a movie" />
         <p>{{ movieName }}</p>
       </form>
     </div>
@@ -31,13 +30,14 @@ export default {
     return {
       movieName: " ",
       movies: [],
-      i: 20,
     };
   },
   methods: {
     fetchmovielist: function () {
       axios
-        .get(`${process.env.VUE_APP_BACKEND_BASE_URL}/movies/40`)
+        .get(
+          `${process.env.VUE_APP_BACKEND_BASE_URL}/recommend` + this.$root.email
+        )
         .then((response) => {
           this.movies = response.data.movie;
           console.log(this.movies);
@@ -46,28 +46,10 @@ export default {
           console.log("ERROR");
         });
     },
-    getNextlist() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          this.i += 20;
-          console.log(this.i);
-          axios
-            .get(`${process.env.VUE_APP_BACKEND_BASE_URL}/movies/` + this.i)
-            .then((response) => {
-              this.movies = response.data.movie;
-            });
-        }
-      };
-    },
   },
-  beforeMount: function () {
+
+  created: function () {
     this.fetchmovielist();
-  },
-  mounted() {
-    this.getNextlist();
   },
 };
 </script>

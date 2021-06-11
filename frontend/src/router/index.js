@@ -4,7 +4,7 @@ import Lien from "../views/Lien.vue";
 import logout from "../views/Logout.vue";
 const routes = [
   {
-    path: "/movies/:movieId",
+    path: "/movies/movie/:movieId",
     name: "Lien",
     component: Lien,
   },

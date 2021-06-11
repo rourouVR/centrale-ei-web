@@ -1,3 +1,12 @@
+const mongoose = require("mongoose");
+const ratingModel = require("../models/rating");
+const axios = require("axios");
+mongoose.connect(process.env.MONGO_DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
+
 // First we create the Pearson function
 //to calculate the score between two users
 var pearson_correlation = function (dataset, p1, p2) {

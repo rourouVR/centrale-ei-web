@@ -1,12 +1,12 @@
 <template>
-  <h1>Are you sure you want to leave?</h1>
+  <h1 style="text-align: center">Are you sure you want to leave?</h1>
   <a @click="logout">
     <img
       class="image"
       title="Logout"
       src="https://www.nicepng.com/png/detail/88-888831_logout-exit-door-comments-exit-door-icon-white.png"
     />
-    <p>Logout</p>
+    <p style="text-align: center">Logout</p>
   </a>
 </template>
 <script>
@@ -41,8 +41,6 @@ export default {
   margin-inline-start: 200px;
   margin-inline-end: 0px;
   font-weight: bold;
-}
-.text-center {
   text-align: center;
 }
 </style>

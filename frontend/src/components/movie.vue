@@ -1,7 +1,7 @@
 <template>
   <div class="movie-container">
     <div class="container">
-      <router-link :to="'/movies/' + movie._id">
+      <router-link :to="'/movies/movie/' + movie._id">
         <img
           class="image"
           :title="movie.title"

@@ -62,7 +62,7 @@ export default {
     fetchMovie: function () {
       return axios
         .get(
-          `${process.env.VUE_APP_BACKEND_BASE_URL}/movies/` +
+          `${process.env.VUE_APP_BACKEND_BASE_URL}/movies/movie/` +
             this.$route.params.movieId
         )
         .then((response) => {
