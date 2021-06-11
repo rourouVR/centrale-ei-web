@@ -15,16 +15,29 @@
         </div>
         <div class="description">
           <div class="resume">
-            <p>{{ film.description }}</p>
+            <p
+              style="
+                margin-left: 2.5em;
+                padding: 0 7em 2em 0;
+                border-width: 0px;
+                border-color: black;
+                border-style: solid;
+                width: 50%;
+              "
+            >
+              {{ film.description }}
+            </p>
           </div>
           <div class="aside">
             <div class="joli"></div>
             <div class="date de sortie">
-              <p>{{ film.release_date }}</p>
+              <p>
+                <font size="+2">{{ film.release_date }}</font>
+              </p>
               <div v-for="data in genres" :key="data">
-                {{ data }}
+                <font size="+1">{{ data }}</font>
               </div>
-              <p>{{ film.language }}</p>
+              <p style="width: 50%">{{ film.language }}</p>
             </div>
           </div>
         </div>
@@ -136,7 +149,7 @@ export default {
     oneStar: function () {
       axios
         .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/ratings/rate`, {
-          imdbidd: this.film.imdbid,
+          imdbid: this.film.imdbid,
           mail: this.$root.email,
           rating: 1,
         })
