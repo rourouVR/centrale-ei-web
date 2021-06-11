@@ -11,7 +11,9 @@
       </div>
       <div class="infos">
         <div class="titre">
-          <h1>{{ film.title }}</h1>
+          <h1>
+            <font size="+6">{{ film.title }}</font>
+          </h1>
         </div>
         <div class="description">
           <div class="resume">
@@ -22,22 +24,29 @@
                 border-width: 0px;
                 border-color: black;
                 border-style: solid;
-                width: 50%;
+                width: 60%;
               "
             >
-              {{ film.description }}
+              <font size="+1"> {{ film.description }}</font>
             </p>
           </div>
           <div class="aside">
             <div class="joli"></div>
             <div class="date de sortie">
+              <p style="text-decoration: underline">release date:</p>
               <p>
                 <font size="+2">{{ film.release_date }}</font>
               </p>
+              <p style="text-decoration: underline">Genre:</p>
               <div v-for="data in genres" :key="data">
                 <font size="+1">{{ data }}</font>
               </div>
-              <p style="width: 50%">{{ film.language }}</p>
+              <p style="text-decoration: underline">langage:</p>
+              <p>
+                <span style="text-transform: uppercase">
+                  <font size="+1">{{ film.language }}</font></span
+                >
+              </p>
             </div>
           </div>
         </div>
