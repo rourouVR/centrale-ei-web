@@ -36,10 +36,11 @@ export default {
     fetchmovielist: function () {
       axios
         .get(
-          `${process.env.VUE_APP_BACKEND_BASE_URL}/recommend` + this.$root.email
+          `${process.env.VUE_APP_BACKEND_BASE_URL}/recommend/` +
+            this.$root.email
         )
         .then((response) => {
-          this.movies = response.data.movie;
+          this.movies = response.data.movies;
           console.log(this.movies);
         })
         .catch(() => {

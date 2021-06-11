@@ -4,13 +4,18 @@ const movieModel = require("../models/movies");
 const recommendModel = require("../models/recommend");
 
 router.get("/:id", function (req, res) {
-  recommendModel.find({ email: req.params.id }).then(function (recommendation) {
-    movieModel
-      .find({ imdbid: recommendation.movielist })
-      .then(function (movies) {
-        res.json({ movies: movies });
-      });
-  });
+  console.log({ email: req.params.id });
+  recommendModel
+    .findOne({ email: req.params.id })
+    .then(function (recommendation) {
+      console.log({ hola: recommendation });
+      movieModel
+        .find({ imdbid: { $in: recommendation.movieList } })
+        .limit(40)
+        .then(function (movies) {
+          res.json({ movies: movies });
+        });
+    });
 });
 
 module.exports = router;

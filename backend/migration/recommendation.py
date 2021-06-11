@@ -2,10 +2,11 @@ from pymongo import MongoClient
 import csv
 import numpy as np
 import pandas as pd
+import operator
 from sklearn import model_selection
 from sklearn.metrics.pairwise import pairwise_distances
-# client = MongoClient(
-# "mongodb://group7:rvBHVpAF7cAwzM5A@cs2021.lmichelin.fr:27017/group7?ssl=true")
+client = MongoClient(
+    "mongodb://group7:rvBHVpAF7cAwzM5A@cs2021.lmichelin.fr:27017/group7?ssl=true")
 
 
 # Create CSV file from database
@@ -14,6 +15,7 @@ ratings = db.ratings
 recommendation = db.recommendation
 users = db.users
 movies = db.movies
+recommend = db.recommendation
 
 t = []
 
@@ -23,7 +25,7 @@ def filloutuserscsv():
     with open('users.csv', 'w') as f:
         writer = csv.writer(f)
         # writer.writerow(header)
-        i = 1
+        i = 0
         for user in users.find():
             data = [i, user["email"], user["firstName"], user["lastName"]]
             i += 1
@@ -41,7 +43,7 @@ def filloutmoviescsv():
     with open('movies.csv', 'w') as f:
         writer = csv.writer(f)
         # writer.writerow(header)
-        i = 1
+        i = 0
         for movie in movies.find():
             data = [i, movie["imdbid"], movie["title"],
                     movie["release_date"], movie["note"], movie["language"]]
@@ -75,8 +77,8 @@ item = pd.read_csv('movies.csv', sep=',', names=item_cols, encoding='latin-1')
 data = pd.read_csv('ratings.csv', sep=',',
                    names=data_cols, encoding='latin-1')
 print(data)
-nb_users = data.userid.unique().shape[0]
-nb_items = data.itemid.unique().shape[0]
+nb_users = users.userid.unique().shape[0]
+nb_items = item.itemid.unique().shape[0]
 movie_matrix = data.pivot_table(
     index='userid', columns='itemid', values='rating')
 
@@ -114,3 +116,37 @@ def predict(ratings, similarity, type='user'):
 user_prediction = predict(train_data_matrix, user_similarity, type='user')
 
 print(user_prediction)
+print(len(user_prediction))
+print(len(user_prediction[:][0]))
+print(len(user_prediction[0][:]))
+
+
+def getmoviesuser(user, user_prediction):
+    s = user_prediction[user]
+    s1 = s.tolist()
+    p = {}
+    for i in range(len(s1)):
+
+        p[l[i]] = s1[i]
+    p1 = sorted(p.items(), key=lambda x: x[1], reverse=True)
+    return(p1)
+
+
+#print(getmoviesuser(1, user_prediction))
+
+def filloutdatabase():
+    recommend.drop()
+    for i in range(len(t)):
+        p = getmoviesuser(i, user_prediction)
+        q = []
+        for j in p:
+            q.append(j[0])
+        z = {
+            "email": t[i],
+            "movieList": q
+        }
+
+        recommend.insert_one(z)
+
+
+filloutdatabase()

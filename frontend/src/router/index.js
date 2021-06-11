@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Lien from "../views/Lien.vue";
 import logout from "../views/Logout.vue";
+import recommendation from "../views/recommendation.vue";
 const routes = [
   {
     path: "/movies/movie/:movieId",
@@ -17,6 +18,11 @@ const routes = [
     path: "/logout",
     name: "logout",
     component: logout,
+  },
+  {
+    path: "/recommendation",
+    name: "recommendation",
+    component: recommendation,
   },
   // {
   //   path: "/counter",
