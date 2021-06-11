@@ -23,8 +23,8 @@
   <div id="login">
     <h1>Login</h1>
     <input type="text" name="email" v-model="input.email" placeholder="Email" />
-    <button type="button" @click="login()">Login</button>
   </div>
+  <div id="button"><button type="button" @click="login()">Login</button></div>
 </template>
 
 <script>
@@ -102,12 +102,47 @@ export default {
 </script>
 
 <style scoped>
-.login {
+/*#login {
   width: 500px;
   border: 1px solid #cccccc;
   background-color: #ffffff;
   margin: auto;
   margin-top: 200px;
   padding: 20px;
+}*/
+
+#login {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding-left: 20%;
+  text-align: center;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding-left: 20%;
+  text-align: center;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+#submit {
+  text-align: center;
+}
+
+#button {
+  position: relative;
+  width: 60%;
+  padding-left: 20%;
+  text-align: center;
+  border-radius: 0.5em;
+  cursor: pointer;
 }
 </style>
