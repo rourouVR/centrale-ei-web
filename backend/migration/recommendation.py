@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 from sklearn import model_selection
 from sklearn.metrics.pairwise import pairwise_distances
-client = MongoClient(
-    "mongodb://group7:rvBHVpAF7cAwzM5A@cs2021.lmichelin.fr:27017/group7?ssl=true")
+# client = MongoClient(
+# "mongodb://group7:rvBHVpAF7cAwzM5A@cs2021.lmichelin.fr:27017/group7?ssl=true")
 
 
 # Create CSV file from database
@@ -37,7 +37,7 @@ l = []
 
 
 def filloutmoviescsv():
-    ##header = ["imdbid", "title", "release_date", "note", "language"]
+    # header = ["itemid","imdbid", "title", "release_date", "note", "language"]
     with open('movies.csv', 'w') as f:
         writer = csv.writer(f)
         # writer.writerow(header)
@@ -60,37 +60,37 @@ def filloutratingcsv():
         # writer.writerow(header)
         for rating in ratings.find():
             data = [t.index(rating["mail"])+1,
-                    rating["imdbid"], rating["rating"]]
+                    l.index(rating["imdbid"])+1, rating["rating"]]
             writer.writerow(data)
 
 
 filloutratingcsv()
 
 
-data_cols = ['userid', 'imdbid', 'rating']
+data_cols = ['userid', 'itemid', 'rating']
 user_cols = ['userid', 'mail', 'firstName', 'lastName']
-item_cols = ['imdbid', 'title', 'release_date', 'note', 'language']
+item_cols = ['itemid', 'imdbid', 'title', 'release_date', 'note', 'language']
 users = pd.read_csv('users.csv', sep=',', names=user_cols, encoding='latin-1')
 item = pd.read_csv('movies.csv', sep=',', names=item_cols, encoding='latin-1')
 data = pd.read_csv('ratings.csv', sep=',',
                    names=data_cols, encoding='latin-1')
 print(data)
 nb_users = data.userid.unique().shape[0]
-nb_items = data.imdbid.unique().shape[0]
+nb_items = data.itemid.unique().shape[0]
 movie_matrix = data.pivot_table(
-    index='userid', columns='imdbid', values='rating')
+    index='userid', columns='itemid', values='rating')
 
-ratings = pd.DataFrame(data.groupby('imdbid')['rating'].mean())
-ratings['number_of_ratings'] = data.groupby('imdbid')['rating'].count()
+ratings = pd.DataFrame(data.groupby('itemid')['rating'].mean())
+ratings['number_of_ratings'] = data.groupby('itemid')['rating'].count()
 train_data, test_data = model_selection.train_test_split(data, test_size=0.25)
 movie_matrix = train_data.pivot_table(
-    index='userid', columns='imdbid', values='rating')
+    index='userid', columns='itemid', values='rating')
 print(train_data.itertuples())
 train_data_matrix = np.zeros((nb_users, nb_items))
 print(train_data.itertuples)
 for line in train_data.itertuples():
     print(line)
-    train_data_matrix[line[1], line[2]] = line[3]
+    train_data_matrix[line[1]-1, line[2]-1] = line[3]
 
 
 user_similarity = pairwise_distances(train_data_matrix, metric='cosine')
